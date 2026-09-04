@@ -1,7 +1,6 @@
-/* Import Google Font */
+/* style.css */
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700;800&display=swap');
 
-/* --- Reset & Base --- */
 * {
     margin: 0;
     padding: 0;
@@ -18,7 +17,6 @@ body {
     background-image: radial-gradient(circle at 20% 30%, #0f1a2e, #060a12 80%);
 }
 
-/* --- Loading Screen --- */
 #loading {
     position: absolute;
     top: 50%;
@@ -39,6 +37,7 @@ body {
     color: #a8d8ea;
     transition: opacity 0.5s ease;
 }
+
 #loading .spinner {
     display: inline-block;
     width: 28px;
@@ -49,13 +48,13 @@ body {
     animation: spin 0.8s cubic-bezier(0.6, 0, 0.4, 1) infinite;
     box-shadow: 0 0 20px rgba(0, 230, 118, 0.2);
 }
+
 @keyframes spin {
     100% {
         transform: rotate(360deg);
     }
 }
 
-/* --- Header Panel --- */
 #info-panel {
     position: absolute;
     top: 24px;
@@ -71,6 +70,7 @@ body {
     pointer-events: none;
     transition: all 0.3s ease;
 }
+
 #info-panel h1 {
     margin: 0;
     font-size: 2rem;
@@ -84,6 +84,7 @@ body {
     animation: shimmer 4s ease-in-out infinite;
     text-shadow: none;
 }
+
 @keyframes shimmer {
     0% {
         background-position: 0% 50%;
@@ -95,6 +96,7 @@ body {
         background-position: 0% 50%;
     }
 }
+
 #info-panel .sub {
     font-size: 0.85rem;
     color: #b0bec5;
@@ -103,13 +105,13 @@ body {
     font-weight: 600;
     -webkit-text-fill-color: #b0bec5;
 }
+
 #info-panel .sub span {
     color: #ffd54f;
     -webkit-text-fill-color: #ffd54f;
     font-weight: 700;
 }
 
-/* --- Status Message --- */
 #status-msg {
     position: absolute;
     bottom: 180px;
@@ -130,6 +132,7 @@ body {
     transition: all 0.3s ease;
     letter-spacing: 0.5px;
 }
+
 #status-msg::before {
     content: '';
     position: absolute;
@@ -139,11 +142,13 @@ body {
     background: linear-gradient(90deg, #00e676, #64b5f6, #00e676);
     background-size: 300% 100%;
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     animation: borderGlow 3s linear infinite;
     opacity: 0.6;
 }
+
 @keyframes borderGlow {
     0% {
         background-position: 0% 0%;
@@ -153,7 +158,6 @@ body {
     }
 }
 
-/* --- Search & Filters Container --- */
 #search-container {
     position: absolute;
     bottom: 40px;
@@ -185,17 +189,18 @@ body {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
     letter-spacing: 0.5px;
 }
+
 #searchBox::placeholder {
     color: #78909c;
     font-weight: 400;
 }
+
 #searchBox:focus {
     border-color: #00e676;
     box-shadow: 0 0 30px rgba(0, 230, 118, 0.15), 0 8px 32px rgba(0, 0, 0, 0.6);
     background: rgba(10, 15, 30, 0.85);
 }
 
-/* --- Category Pills --- */
 #category-container {
     display: flex;
     flex-wrap: wrap;
@@ -226,12 +231,14 @@ body {
     text-transform: uppercase;
     white-space: nowrap;
 }
+
 .cat-btn:hover {
     background: rgba(0, 230, 118, 0.1);
     color: #ffffff;
     border-color: rgba(0, 230, 118, 0.3);
     transform: translateY(-2px);
 }
+
 .cat-btn.active {
     background: #00e676;
     color: #0a0f1a;
@@ -240,8 +247,164 @@ body {
     font-weight: 800;
 }
 
-/* --- Responsive --- */
+.auto-rotate-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 25;
+    background: rgba(20, 30, 50, 0.8);
+    color: #fff;
+    border: 1px solid #64b5f6;
+    border-radius: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+    backdrop-filter: blur(8px);
+}
+
+.auto-rotate-btn.active {
+    background: #64b5f6;
+    color: #000;
+    border-color: #fff;
+    box-shadow: 0 0 15px rgba(100, 181, 246, 0.4);
+}
+
+/* ===== CAMERA PREVIEW WINDOW ===== */
+#camera-preview {
+    position: absolute;
+    bottom: 80px;
+    left: 20px;
+    z-index: 30;
+    width: 200px;
+    background: rgba(10, 15, 30, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 16px;
+    border: 1px solid rgba(0, 230, 118, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 230, 118, 0.06);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: bottom left;
+}
+
+#camera-preview.hidden {
+    transform: scale(0.8);
+    opacity: 0;
+    pointer-events: none;
+}
+
+#camera-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 14px;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #90a4ae;
+    text-transform: uppercase;
+}
+
+#camera-header span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#camera-toggle {
+    background: rgba(255, 255, 255, 0.06);
+    border: none;
+    color: #90a4ae;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-weight: 300;
+}
+
+#camera-toggle:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+}
+
+#camera-video-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: #060a12;
+    overflow: hidden;
+}
+
+#camera-video-wrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scaleX(-1);
+    /* Mirror effect */
+    display: block;
+}
+
+#camera-status {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 4px 10px;
+    background: rgba(0, 0, 0, 0.7);
+    font-size: 0.55rem;
+    color: #78909c;
+    text-align: center;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+#camera-status.active {
+    color: #00e676;
+}
+
+#camera-status.error {
+    color: #ff5252;
+}
+
+/* Camera active glow */
+#camera-preview.active {
+    border-color: rgba(0, 230, 118, 0.6);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7), 0 0 60px rgba(0, 230, 118, 0.08);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
+    #camera-preview {
+        width: 140px;
+        bottom: 70px;
+        left: 12px;
+        border-radius: 12px;
+    }
+    #camera-header {
+        padding: 5px 10px;
+        font-size: 0.55rem;
+    }
+    #camera-toggle {
+        width: 20px;
+        height: 20px;
+        font-size: 1rem;
+    }
+    #camera-status {
+        font-size: 0.45rem;
+        padding: 3px 8px;
+    }
     #info-panel {
         top: 16px;
         left: 16px;
@@ -277,8 +440,34 @@ body {
         bottom: 160px;
         white-space: normal;
     }
+    .auto-rotate-btn {
+        bottom: 10px;
+        right: 10px;
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
 }
+
 @media (max-width: 480px) {
+    #camera-preview {
+        width: 110px;
+        bottom: 60px;
+        left: 8px;
+        border-radius: 10px;
+    }
+    #camera-header {
+        padding: 4px 8px;
+        font-size: 0.45rem;
+    }
+    #camera-toggle {
+        width: 16px;
+        height: 16px;
+        font-size: 0.8rem;
+    }
+    #camera-status {
+        font-size: 0.4rem;
+        padding: 2px 6px;
+    }
     #info-panel h1 {
         font-size: 1.2rem;
     }
@@ -286,4 +475,10 @@ body {
         padding: 3px 8px;
         font-size: 0.55rem;
     }
+}
+
+/* Hide camera preview if camera not available */
+#camera-preview.no-camera {
+    opacity: 0.3;
+    pointer-events: none;
 }
